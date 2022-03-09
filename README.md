@@ -21,7 +21,7 @@ At the moment this script should help everyone to have a nice and good accountin
 - Use cash or Banking
 
 ## Issues and Suggestions
-Please use the GitHub issues system to report issue me via Jerzy#9709.
+Please use the GitHub issues system or report issue me via Jerzy#9709.
 
 Preview:
 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jerzy's Billing</title>
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+</head>
+<body>
+    <section id="jerzysBilling">
+        <div class="jerzys_billing_container">
+            <div class="billing_box">
+                <div class="billing_box_header">
+                    <h1>QB-Billing</h1>
+                    <span class="copyright_billing">Jerzys</span>
+                    <div class="billing_close">
+                        <span class="material-icons">
+                            close
+                        </span>
+                    </div>
+                </div>
+                <div class="billing_box_body">
+                    <div class="billing_group">
+                        <label for="player_id" class="billing_input_label">Player id</label>
+                        <input type="number" name="player_id" id="player_id" class="billing_item_input" placeholder="Player ID">
+                    </div>
+                    <div class="billing_group">
+                        <label for="billing_ammount" class="billing_input_label">Ammount</label>
+                        <input type="number" name="billing_ammount" id="billing_ammount" class="billing_item_input" placeholder="1000,00">
+                        <span class="billing_ammount_dollar_sign">$</span>
+                    </div>
+                    <div class="billing_group">
+                        <label for="billing_title" class="billing_input_label">Title</label>
+                        <input type="text" name="billing_title" id="billing_title" class="billing_item_input" placeholder="Payment for Taxi">
+                    </div>
+                    <div class="billing_group textArea">
+                        <label for="billing_text" class="billing_input_label">Text</label>
+                        <textarea name="billing_text" id="billing_text" cols="30" rows="7" class="hideText" placeholder="I would like to Bill you...."></textarea>
+                    </div>
+                    <div class="billing_checkbox">
+                        <span>Send without Text?</span>
+                        <div class="billing_custom_checkbox">
+                            <div class="checkbox_box ">
+                                <span class="material-icons  checkIcon">done</span>
+                            </div>
+                            <input type="checkbox" name="checkText" id="checkText" val="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="billing_box_footer">
+                    <div class="billing_btn secondary billing_close">Close</div>
+                    <div class="billing_btn primary billing_submit">Submit</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <input type="hidden" id="playerId" value="">
+    <input type="hidden" value="https://github.com/JZSandbox">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>

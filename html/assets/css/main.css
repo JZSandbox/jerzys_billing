@@ -1,0 +1,255 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;0,800;0,900;1,600;1,700;1,800;1,900&display=swap");
+html, body {
+  font-family: 'Poppins';
+  overflow: hidden !important;
+}
+
+/*
+    Colors
+*/
+#jerzysBilling {
+  width: 100%;
+  height: 100vh;
+  display: none;
+}
+
+#jerzysBilling .jerzys_billing_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.billing_box {
+  width: 600px;
+  background-color: #171717;
+  border-radius: 8px;
+}
+
+.billing_box_header {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-color: #DC143C;
+  border: 1px solid #DC143C;
+  border-radius: 8px 8px 0 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: white;
+  position: relative;
+  padding: 0 20px;
+}
+
+.billing_box_header h1 {
+  padding: 0;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  font-style: italic;
+  padding: 12px 0;
+  text-transform: uppercase;
+}
+
+.billing_box_header .copyright_billing {
+  position: absolute;
+  bottom: 5px;
+  left: 115px;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.billing_box_header .billing_close {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  cursor: pointer;
+}
+
+.billing_box_header .billing_close span {
+  -webkit-transition: 0.3s ease all;
+  transition: 0.3s ease all;
+}
+
+.billing_box_header .billing_close span:hover {
+  color: #474747;
+}
+
+.billing_box_body {
+  padding: 30px 20px 0 20px;
+}
+
+.billing_box .hide {
+  display: none !important;
+}
+
+.billing_box .billing_checkbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.billing_box .billing_checkbox span {
+  font-size: 16px;
+  color: white;
+}
+
+.billing_box .billing_checkbox .billing_custom_checkbox {
+  position: relative;
+}
+
+.billing_box .billing_checkbox .billing_custom_checkbox .checkbox_box {
+  width: 20px;
+  height: 20px;
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.billing_box .billing_checkbox .billing_custom_checkbox .checkbox_box .checkIcon {
+  font-size: 36px;
+  background-color: transparent !important;
+  position: absolute;
+  top: -12px;
+  left: -2px;
+  display: none;
+}
+
+.billing_box .billing_checkbox .billing_custom_checkbox .checked {
+  background-color: #DC143C !important;
+  display: block !important;
+}
+
+.billing_box .billing_checkbox .billing_custom_checkbox #checkText {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+}
+
+.billing_box .billing_group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.billing_box .billing_group .billing_ammount_dollar_sign {
+  position: absolute;
+  color: white;
+  right: 10px;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  font-size: 18px;
+}
+
+.billing_box .billing_group .billing_input_label {
+  color: white;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 800;
+  position: absolute;
+  top: -12px;
+  left: 10px;
+  background-color: #171717;
+  padding: 0 5px;
+}
+
+.billing_box .billing_group #billing_text {
+  background-color: #171717;
+  border-radius: 6px;
+  border: 1px solid white;
+  padding: 10px 0 0 10px;
+  font-size: 12px;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+.billing_box .billing_group #billing_text:focus {
+  outline: 0;
+  -webkit-box-shadow: 0 3px 10px #ca1236;
+          box-shadow: 0 3px 10px #ca1236;
+}
+
+.billing_box .billing_group .billing_item_input {
+  font-family: 'Poppins', sans-serif;
+  background-color: transparent;
+  border: 1px solid white;
+  padding: 1rem 1rem;
+  border-radius: 6px;
+  color: white;
+}
+
+.billing_box .billing_group .billing_item_input:focus {
+  outline: 0 solid #DC143C;
+  -webkit-box-shadow: 0 3px 10px #ca1236;
+          box-shadow: 0 3px 10px #ca1236;
+}
+
+.billing_box_footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 30px 20px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.billing_box #checkText {
+  cursor: pointer;
+}
+
+/*
+    Buttons
+*/
+.billing_btn {
+  background-color: #DC143C;
+  color: white;
+  min-width: 200px;
+  text-align: center;
+  padding: 0.5rem 0;
+  border-radius: 6px;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 800;
+  cursor: pointer;
+  -webkit-transition: 0.3s ease all;
+  transition: 0.3s ease all;
+}
+
+.billing_btn:hover {
+  background-color: #4e0b19;
+}
+
+/*
+Hide Number on Input FireFox & Chrome
+*/
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/*# sourceMappingURL=main.css.map */

@@ -18,6 +18,7 @@ At the moment this script should help everyone to have a nice and good accountin
 - Custom Text
 - Ability to use QB-Target to Target Player to make generate a Bill
 - Nice UI
+- Use cash or Banking
 
 ## Issues and Suggestions
 Please use the GitHub issues system to report issue me via Jerzy#9709.

@@ -48,7 +48,6 @@ RegisterNetEvent('jerzys-billing:server:doneBilling',function(data)
     if(Config.useCash == true) then
         if currentPlayer ~= nil then
             if getCash - ammount >= 0 then
-                print('true')
                 currentPlayer.Functions.RemoveMoney("cash", ammount, "jerzys-billing-paid")
                 if paidPlayer ~= nil then
                     paidPlayer.Functions.AddMoney("cash", ammount, "jerzys-billing-paid");

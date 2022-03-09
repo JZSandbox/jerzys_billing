@@ -1,6 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterNetEvent('jerzys-billing:server:sendBilling', function (data)
+RegisterNetEvent('jerzys_billing:server:sendBilling', function (data)
     local src = source
 
     -- Data where to send Billing & what
@@ -20,17 +20,17 @@ RegisterNetEvent('jerzys-billing:server:sendBilling', function (data)
     -- Check Current Player & Player
     if currentPlayer ~= nil then
         if billedPlayer ~= nil then
-            TriggerClientEvent('jerzys-billing:client:sendBilling', playerId, ammount, title, text, name, cId)
+            TriggerClientEvent('jerzys_billing:client:sendBilling', playerId, ammount, title, text, name, cId)
             else
-            TriggerClientEvent('jerzys-billing:client:error', src, {error = 'online'})
+            TriggerClientEvent('jerzys_billing:client:error', src, {error = 'online'})
         end
     else
-        TriggerClientEvent('jerzys-billing:client:error', src, {error = 'player'})
+        TriggerClientEvent('jerzys_billing:client:error', src, {error = 'player'})
     end
 
 end)
 
-RegisterNetEvent('jerzys-billing:server:doneBilling',function(data)
+RegisterNetEvent('jerzys_billing:server:doneBilling',function(data)
     
     -- Data
     local ammount = data["ammount"];
@@ -48,9 +48,9 @@ RegisterNetEvent('jerzys-billing:server:doneBilling',function(data)
     if(Config.useCash == true) then
         if currentPlayer ~= nil then
             if getCash - ammount >= 0 then
-                currentPlayer.Functions.RemoveMoney("cash", ammount, "jerzys-billing-paid")
+                currentPlayer.Functions.RemoveMoney("cash", ammount, "jerzys_billing-paid")
                 if paidPlayer ~= nil then
-                    paidPlayer.Functions.AddMoney("cash", ammount, "jerzys-billing-paid");
+                    paidPlayer.Functions.AddMoney("cash", ammount, "jerzys_billing-paid");
                     TriggerClientEvent("QBCore:Notify", paidPlayer, "You have recived $"..ammount.."$ from: "..currentPlayerFirstName.." cash!", "success")
                 end
             else
@@ -61,9 +61,9 @@ RegisterNetEvent('jerzys-billing:server:doneBilling',function(data)
     else
         if currentPlayer ~= nil then
             if getBank - ammount >= 0 then
-                currentPlayer.Functions.RemoveMoney("bank", ammount, "jerzys-billing-paid")
+                currentPlayer.Functions.RemoveMoney("bank", ammount, "jerzys_billing-paid")
                 if paidPlayer ~= nil then
-                    paidPlayer.Functions.AddMoney("bank", ammount, "pjerzys-billing-paid");
+                    paidPlayer.Functions.AddMoney("bank", ammount, "pjerzys_billing-paid");
                     TriggerClientEvent("QBCore:Notify", paidPlayer, "You have recived $"..ammount.."$ from: "..currentPlayerFirstName.." bank!", "success")
                 end
             end

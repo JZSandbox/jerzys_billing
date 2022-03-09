@@ -23,7 +23,7 @@ window.addEventListener('message', (event) => {
 
 function closeMenu() {
     resetVal()
-    $.post('https://jerzys-billing/hideMenu', JSON.stringify({}))
+    $.post('https://jerzys_billing/hideMenu', JSON.stringify({}))
 }
 
 $(document).on("click", ".billing_close", function () { 
@@ -48,7 +48,7 @@ $(document).on("click", ".billing_submit", function () {
 
     if(checkIsFilled()) {
         $.ajax({
-            url: 'https://jerzys-billing/submitBilling',
+            url: 'https://jerzys_billing/submitBilling',
             type: 'POST',
             data: JSON.stringify({
                 player : playerId,
@@ -79,7 +79,7 @@ function checkIsFilled() {
     $('#player_id, #billing_ammount, #billing_title').each(function(index, element) {
         if ($(this).val() == '') {
             if(index == 0) {
-                $.post('https://jerzys-billing/error')
+                $.post('https://jerzys_billing/error')
                 checked = false;
             }
         } else {
@@ -97,7 +97,7 @@ function checkIsFilled() {
 
 /** Sending Error Function as NUI Callback **/
 function error() {
-    $.post('https://jerzys-billing/error')
+    $.post('https://jerzys_billing/error')
 }
 
 /** Function to Reset all Input Values **/

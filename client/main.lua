@@ -10,9 +10,9 @@ end
 if(Config.useCommand == true) then
     RegisterCommand('jzBilling', function ()
         local xPlayer = QBCore.Functions.GetPlayerData()
-        TriggerEvent('jerzys-billing:client:openEvent', xPlayer)
+        TriggerEvent('jerzys_billing:client:openEvent', xPlayer)
     end)
-    RegisterNetEvent('jerzys-billing:client:openEvent', function (data)
+    RegisterNetEvent('jerzys_billing:client:openEvent', function (data)
         local xPlayer = data;
         SetNuiFocus(true, true)
         SendNUIMessage({
@@ -23,7 +23,7 @@ if(Config.useCommand == true) then
 end
 
 if(Config.useTarget == true) then
-    RegisterNetEvent('jerzys-billing:client:openBillingMenu', function ()
+    RegisterNetEvent('jerzys_billing:client:openBillingMenu', function ()
         local xPlayer = QBCore.Functions.GetPlayerData()
         SetNuiFocus(true, true)
         SendNUIMessage({
@@ -48,12 +48,12 @@ RegisterNUICallback('submitBilling', function (data, cb)
     local title = data.title
     local text = data.text
 
-    TriggerServerEvent('jerzys-billing:server:sendBilling', {playerId, ammount, title, text})
+    TriggerServerEvent('jerzys_billing:server:sendBilling', {playerId, ammount, title, text})
 
 end)
 
 
-RegisterNetEvent('jerzys-billing:client:sendBilling', function (ammount, title, text, name, cId)
+RegisterNetEvent('jerzys_billing:client:sendBilling', function (ammount, title, text, name, cId)
     local data = {}
     data = {ammount = ammount, cid = cId}
     TriggerServerEvent('qb-phone:server:sendNewMail', {
@@ -64,20 +64,20 @@ RegisterNetEvent('jerzys-billing:client:sendBilling', function (ammount, title, 
         ]],text,ammount),
     button = {
         enabled = true,
-        buttonEvent = 'jerzys-billing:client:confirm',
+        buttonEvent = 'jerzys_billing:client:confirm',
         buttonData = data;
         }
     })
 
 end)
 
-RegisterNetEvent('jerzys-billing:client:confirm',function(data)
-    TriggerServerEvent('jerzys-billing:server:doneBilling', data)
+RegisterNetEvent('jerzys_billing:client:confirm',function(data)
+    TriggerServerEvent('jerzys_billing:server:doneBilling', data)
 end)
 
 
 -- Error Handler
-RegisterNetEvent('jerzys-billing:client:error', function(data)
+RegisterNetEvent('jerzys_billing:client:error', function(data)
     if data.error == "online" then
         QBCore.Functions.Notify('Player is currenlty not online!', 'error', 5000)
     end

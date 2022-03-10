@@ -39,7 +39,7 @@ RegisterNetEvent('jerzys_billing:server:doneBilling',function(data)
     local currentPlayer = QBCore.Functions.GetPlayer(source)
     local paidPlayer = QBCore.Functions.GetPlayerByCitizenId(data["cid"])
     local currentPlayerFirstName = currentPlayer.PlayerData.charinfo.firstname
-
+    
     -- Bank & Cash
     local getBank = currentPlayer.PlayerData.money["bank"]
     local getCash = currentPlayer.PlayerData.money["cash"]
@@ -51,10 +51,10 @@ RegisterNetEvent('jerzys_billing:server:doneBilling',function(data)
                 currentPlayer.Functions.RemoveMoney("cash", ammount, "jerzys_billing-paid")
                 if paidPlayer ~= nil then
                     paidPlayer.Functions.AddMoney("cash", ammount, "jerzys_billing-paid");
-                    TriggerClientEvent("QBCore:Notify", paidPlayer, "You have recived $"..ammount.."$ from: "..currentPlayerFirstName.." cash!", "success")
+                    TriggerClientEvent("QBCore:Notify", paidPlayer.PlayerData.source, "You have recived $"..ammount.."$ from: "..currentPlayerFirstName.." cash!", "success")
                 end
             else
-                TriggerClientEvent("QBCore:Notify", paidPlayer, "Player doesnt have money to pay the bill!", "success")
+                TriggerClientEvent("QBCore:Notify", paidPlayer.PlayerData.source, "Player doesnt have money to pay the bill!", "success")
                 TriggerClientEvent("QBCore:Notify", currentPlayer.PlayerData.source, "You don't have enough Cash!", "error")
             end
         end
@@ -64,11 +64,12 @@ RegisterNetEvent('jerzys_billing:server:doneBilling',function(data)
                 currentPlayer.Functions.RemoveMoney("bank", ammount, "jerzys_billing-paid")
                 if paidPlayer ~= nil then
                     paidPlayer.Functions.AddMoney("bank", ammount, "pjerzys_billing-paid");
-                    TriggerClientEvent("QBCore:Notify", paidPlayer, "You have recived $"..ammount.."$ from: "..currentPlayerFirstName.." bank!", "success")
+                    TriggerClientEvent("QBCore:Notify", paidPlayer.PlayerData.source, "You have recived $"..ammount.."$ from: "..currentPlayerFirstName.." bank!", "success")
                 end
+            else
+                TriggerClientEvent("QBCore:Notify", paidPlayer.PlayerData.source, "Player doesnt have money to pay the bill!", "success")
+                TriggerClientEvent("QBCore:Notify", currentPlayer.PlayerData.source, "You don't have enough Bank!", "error")
             end
         end
     end
-
-
 end)

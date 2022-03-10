@@ -1,75 +1,88 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterNetEvent('jerzys_billing:server:sendBilling', function (data)
-    local src = source
+function closeMenu()
+    SetNuiFocus(false, false)
+    SendNUIMessage({
+        action = 'closeMenu'
+    })
+end
 
-    -- Data where to send Billing & what
-    local playerId = data[1]
-    local ammount = data[2]
-    local title = data[3]
-    local text = data[4]
+if(Config.useCommand == true) then
+    RegisterCommand('jzBilling', function ()
+        local xPlayer = QBCore.Functions.GetPlayerData()
+        TriggerEvent('jerzys_billing:client:openEvent', xPlayer)
+    end)
+    RegisterNetEvent('jerzys_billing:client:openEvent', function (data)
+        local xPlayer = data;
+        SetNuiFocus(true, true)
+        SendNUIMessage({
+            action = 'openMenu',
+            player = xPlayer,
+        })
+    end)
+end
 
-    -- Get Current Player and Player to send Billing
-    local billedPlayer = QBCore.Functions.GetPlayer(tonumber(playerId))
-    local currentPlayer = QBCore.Functions.GetPlayer(source)
+if(Config.useTarget == true) then
+    RegisterNetEvent('jerzys_billing:client:openBillingMenu', function ()
+        local xPlayer = QBCore.Functions.GetPlayerData()
+        SetNuiFocus(true, true)
+        SendNUIMessage({
+            action = 'openMenu',
+            player = xPlayer,
+        })
+    end)
+end
 
-    -- Assets you need
-    local name = currentPlayer.PlayerData.charinfo.firstname..' '..currentPlayer.PlayerData.charinfo.lastname
-    local cId  = currentPlayer.PlayerData.citizenid
-    
-    -- Check Current Player & Player
-    if currentPlayer ~= nil then
-        if billedPlayer ~= nil then
-            TriggerClientEvent('jerzys_billing:client:sendBilling', playerId, ammount, title, text, name, cId)
-            else
-            TriggerClientEvent('jerzys_billing:client:error', src, {error = 'online'})
-        end
-    else
-        TriggerClientEvent('jerzys_billing:client:error', src, {error = 'player'})
-    end
+RegisterNUICallback('hideMenu', function ()
+    closeMenu()
+end)
+
+RegisterNUICallback('error', function ()
+    QBCore.Functions.Notify('Please look at the Billing again!', 'error', 5000)
+end)
+
+RegisterNUICallback('submitBilling', function (data, cb)
+
+    local playerId = data.player
+    local ammount = data.ammount
+    local title = data.title
+    local text = data.text
+
+    TriggerServerEvent('jerzys_billing:server:sendBilling', {playerId, ammount, title, text})
 
 end)
 
-RegisterNetEvent('jerzys_billing:server:doneBilling',function(data)
-    
-    -- Data
-    local ammount = data["ammount"];
 
-    -- Getting Billed / Billed
-    local currentPlayer = QBCore.Functions.GetPlayer(source)
-    local paidPlayer = QBCore.Functions.GetPlayerByCitizenId(data["cid"])
-    local currentPlayerFirstName = currentPlayer.PlayerData.charinfo.firstname
-    
-    -- Bank & Cash
-    local getBank = currentPlayer.PlayerData.money["bank"]
-    local getCash = currentPlayer.PlayerData.money["cash"]
+RegisterNetEvent('jerzys_billing:client:sendBilling', function (ammount, title, text, name, cId)
+    local data = {}
+    data = {ammount = ammount, cid = cId}
+    TriggerServerEvent('qb-phone:server:sendNewMail', {
+    sender = name,
+    subject = title,
+    message = string.format([[
+        <div class="jerzys_billing_text">%s</div><div class="jerzys_billing_ammount"> Amount: %s $</div> <br>You can accept and decline by using the buttons on the bottom
+        ]],text,ammount),
+    button = {
+        enabled = true,
+        buttonEvent = 'jerzys_billing:client:confirm',
+        buttonData = data;
+        }
+    })
 
-    -- Check Money & Pay player
-    if(Config.useCash == true) then
-        if currentPlayer ~= nil then
-            if getCash - ammount >= 0 then
-                currentPlayer.Functions.RemoveMoney("cash", ammount, "jerzys_billing-paid")
-                if paidPlayer ~= nil then
-                    paidPlayer.Functions.AddMoney("cash", ammount, "jerzys_billing-paid");
-                    TriggerClientEvent("QBCore:Notify", paidPlayer.PlayerData.source, "You have recived $"..ammount.."$ from: "..currentPlayerFirstName.." cash!", "success")
-                end
-            else
-                TriggerClientEvent("QBCore:Notify", paidPlayer.PlayerData.source, "Player doesnt have money to pay the bill!", "success")
-                TriggerClientEvent("QBCore:Notify", currentPlayer.PlayerData.source, "You don't have enough Cash!", "error")
-            end
-        end
-    else
-        if currentPlayer ~= nil then
-            if getBank - ammount >= 0 then
-                currentPlayer.Functions.RemoveMoney("bank", ammount, "jerzys_billing-paid")
-                if paidPlayer ~= nil then
-                    paidPlayer.Functions.AddMoney("bank", ammount, "pjerzys_billing-paid");
-                    TriggerClientEvent("QBCore:Notify", paidPlayer.PlayerData.source, "You have recived $"..ammount.."$ from: "..currentPlayerFirstName.." bank!", "success")
-                end
-            else
-                TriggerClientEvent("QBCore:Notify", paidPlayer.PlayerData.source, "Player doesnt have money to pay the bill!", "success")
-                TriggerClientEvent("QBCore:Notify", currentPlayer.PlayerData.source, "You don't have enough Bank!", "error")
-            end
-        end
+end)
+
+RegisterNetEvent('jerzys_billing:client:confirm',function(data)
+    TriggerServerEvent('jerzys_billing:server:doneBilling', data)
+end)
+
+
+-- Error Handler
+RegisterNetEvent('jerzys_billing:client:error', function(data)
+    if data.error == "online" then
+        QBCore.Functions.Notify('Player is currenlty not online!', 'error', 5000)
+    end
+
+    if data.error == "player" then
+        QBCore.Functions.Notify('Who are you?', 'error', 5000)
     end
 end)
